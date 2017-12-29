@@ -4,6 +4,9 @@ project(mashinka)
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
 
+## Install Python dependencies to the binary directory
+execute_process(COMMAND pip install git+https://github.com/adafruit/Adafruit-Motor-HAT-Python-Library.git -t "${CMAKE_CURRENT_BINARY_DIR}")
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages

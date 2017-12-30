@@ -8,8 +8,8 @@ def callback(data):
 
 def listener():
 
-    rospy.init_node('mashinka', anonymous=True)
-    rospy.Subscriber('mashinka_command', MachinkaCommand, callback)
+    rospy.init_node('car_main', anonymous=True)
+    rospy.Subscriber('mashinka_command', MashinkaCommand, callback)
 
     # spin() simply keeps python from exiting until this node is stopped
     rospy.spin()

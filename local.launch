@@ -1,3 +1,4 @@
 <launch>
   <node name="car_main" pkg="mashinka" type="car_main.py" output="screen"/>
+  <node name="virtual_motors" pkg="mashinka" type="virtual_motors.py" output="screen"/>
 </launch>

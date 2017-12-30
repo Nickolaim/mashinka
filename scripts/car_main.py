@@ -3,16 +3,19 @@
 import rospy
 from mashinka.msg import MashinkaCommand
 
-def callback(data):
-    rospy.loginfo(rospy.get_caller_id() + 'I heard %s', data.command)
 
-def listener():
+class Car(object):
 
-    rospy.init_node('car_main', anonymous=True)
-    rospy.Subscriber('mashinka_command', MashinkaCommand, callback)
+    def callback(self, data):
+        rospy.loginfo(rospy.get_caller_id() + 'I heard %s', data.command)
 
-    # spin() simply keeps python from exiting until this node is stopped
-    rospy.spin()
+    def listener(self):
+        rospy.init_node('car_main', anonymous=True)
+        rospy.Subscriber('mashinka_command', MashinkaCommand, self.callback)
+
+        # spin() simply keeps python from exiting until this node is stopped
+        rospy.spin()
+
 
 if __name__ == '__main__':
-    listener()
+    Car().listener()

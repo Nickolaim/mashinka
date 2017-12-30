@@ -53,6 +53,7 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
   MashinkaCommand.msg
+  MotorCommand.msg
 )
 
 ## Generate services in the 'srv' folder
@@ -164,6 +165,8 @@ include_directories(
 install(PROGRAMS
   scripts/car_main
   scripts/car_main.py
+  scripts/virtual_motors
+  scripts/virtual_motors.py
   DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 

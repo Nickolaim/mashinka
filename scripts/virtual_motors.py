@@ -5,7 +5,7 @@ from mashinka.msg import MotorCommand
 
 
 def callback(data):
-    rospy.loginfo("{}. Left: {}, right: {}", rospy.get_caller_id(), data.left, data.right)
+    rospy.loginfo("{}. Left: {}, right: {}".format(rospy.get_caller_id(), data.left, data.right))
 
 
 def listener():

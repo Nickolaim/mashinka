@@ -5,6 +5,10 @@ from mashinka.msg import MashinkaCommand, MotorCommand
 
 NODE_NAME = 'car_main'
 
+FORWARD = 'f'
+BACKWARD = 'b'
+COMMANDS = [FORWARD, BACKWARD]
+
 
 class Car(object):
     def __init__(self):
@@ -13,9 +17,16 @@ class Car(object):
 
     def callback(self, data):
         rospy.loginfo(rospy.get_caller_id() + '. I heard %s', data.command)
+        cmd = data.command.lower()
+        if cmd not in COMMANDS:
+            return
+
         motor_command = MotorCommand()
-        motor_command.left = 1.0
-        motor_command.right = -1.0
+        if cmd == FORWARD:
+            motor_command.left = motor_command.right = 1.0
+        elif cmd == BACKWARD:
+            motor_command.left = motor_command.right = -1.0
+
         self.publisher.publish(motor_command)
 
     def listener(self):

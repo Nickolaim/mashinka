@@ -1,0 +1,21 @@
+---
+- name: Install mashinka service on RPI
+  hosts: raspberry
+  vars:
+    robot_upstart_repo: "https://github.com/clearpathrobotics/robot_upstart.git"
+    robot_upstart_dir: "{{ catkin_src_dir }}/robot_upstart"
+
+  tasks:
+    - include_vars: file=common_vars.yml
+    - service: name=mashinka state=stopped
+      become: yes
+      ignore_errors: yes
+    - git: repo="{{ robot_upstart_repo }}" dest="{{ robot_upstart_dir }}"
+    - shell: source {{ ros_setup }} && cd {{ catkin_ws_dir }} && catkin_make
+      args:
+        executable: /bin/bash
+    - shell: source {{ ros_setup }} && cd {{ catkin_ws_dir }} && source devel/setup.bash && rosrun robot_upstart install mashinka/local.launch --interface eth0 --user nick --rosdistro {{ ros_distro }} --provider systemd
+      become: yes
+      args:
+        executable: /bin/bash
+

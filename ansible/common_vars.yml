@@ -1,0 +1,4 @@
+catkin_ws_dir: "/home/nick/catkin_ws"
+catkin_src_dir: "{{ catkin_ws_dir }}/src"
+ros_distro: "indigo"
+ros_setup: "/opt/ros/{{ ros_distro }}/setup.bash"

@@ -2,18 +2,17 @@
 - name: Deploy mashinka on RPI
   hosts: raspberry
   vars:
-    catkin_ws_dir: "~/catkin_ws"
-    catkin_src_dir: "{{ catkin_ws_dir }}/src"
     repo: "https://github.com/Nickolaim/mashinka.git"
-    ros_distro: "indigo"
-    ros_setup: "/opt/ros/{{ ros_distro }}/setup.bash"
+    mashinka_dir: "{{ catkin_src_dir }}/mashinka"
 
   tasks:
+    - include_vars: file=common_vars.yml
     - file: path="{{ catkin_ws_dir }}" state=directory
     - file: path="{{ catkin_src_dir }}" state=directory
+    - file: path="{{ mashinka_dir }}" state=directory
     - apt: name=git state=present
       become: yes
-    - git: repo="{{ repo }}" dest="{{ catkin_src_dir }}"
+    - git: repo="{{ repo }}" dest="{{ mashinka_dir }}"
     - shell: source {{ ros_setup }} && cd {{ catkin_ws_dir }} && catkin_make
       args:
         executable: /bin/bash
